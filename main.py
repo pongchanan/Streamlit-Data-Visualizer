@@ -1,5 +1,9 @@
 import streamlit as st
 import pandas as pd
+from matplotlib import pyplot as plt
+import numpy as np
+
+figure = plt.figure()
 
 def date_converter(date_col):
     # Convert to string format and extract the date part
@@ -22,5 +26,9 @@ if files:
             for file in files:
                 if file.name in selected_file:
                     shop_data = pd.read_excel(file, index_col=0)
+                    item = list(shop_data[option])
                     dates = date_converter(shop_data["DATE"])
+                    index = np.arange(len(dates))
+                    plt.plot(index, item)
                     print(dates)
+            st.write(figure)
